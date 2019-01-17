@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JS Drum Kit</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<!-- 
+	Shout out to w. Bos and javascript30.com site! 
+	 Background photo by anna-m. w. from Pexels.com
+-->
+<body>
+ <div class="keys">
+ 	<!-- Add your own data attributes -->
+ 	<div data-key="65" class="key">
+ 		<kbd>A</kbd>
+ 		<span class="sound">Banana Slap</span>
+ 	</div>
+ 	<div data-key="83" class="key">
+ 		<kbd>S</kbd>
+ 		<span class="sound">Dinosaur</span>
+ 	</div>
+ 	<div data-key="68" class="key">
+ 		<kbd>D</kbd>
+ 		<span class="sound">Drum Roll</span>
+ 	</div>
+ 	<div data-key="70" class="key">
+ 		<kbd>F</kbd>
+ 		<span class="sound">M4</span>
+ 	</div>
+ 	<div data-key="71" class="key">
+ 		<kbd>G</kbd>
+ 		<span class="sound">Frogs</span>
+ 	</div>
+ 	<div data-key="72" class="key">
+ 		<kbd>H</kbd>
+ 		<span class="sound">Frying Pan</span>
+ 	</div>
+ 	<div data-key="74" class="key">
+ 		<kbd>J</kbd>
+ 		<span class="sound">Siren</span>
+ 	</div>
+ 	<div data-key="75" class="key">
+ 		<kbd>K</kbd>
+ 		<span class="sound">Smack</span>
+ 	</div>
+ 	<div data-key="76" class="key">
+ 		<kbd>L</kbd>
+ 		<span class="sound">Water Droplet</span>
+ 	</div>
+<!-- These hook up they keys to audio using data-keys"_value_" -->
+	<audio data-key="65" src="sounds/banana.wav"></audio>
+	<audio data-key="83" src="sounds/dinosaur.wav"></audio>
+	<audio data-key="68" src="sounds/drum-roll.wav"></audio>
+	<audio data-key="70" src="sounds/m4a1.wav"></audio>
+	<audio data-key="71" src="sounds/frogs.wav"></audio>
+	<audio data-key="72" src="sounds/frying-pan.wav"></audio>
+	<audio data-key="74" src="sounds/siren.wav"></audio>
+	<audio data-key="75" src="sounds/smack.wav"></audio>
+	<audio data-key="76" src="sounds/water-droplet.wav"></audio>
+</div>
+ <script>
+ 	/*
+ 	 * This function listens key pressed and assigns a sound file as well as adds a class
+ 	*/
+	function playSound(e){
+		// console.log(e);
+ 		// Select the key by its data selector
+ 		const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+ 		// Select key with class key
+ 		const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+ 		// Ignore unassigned keys
+ 		if(!audio) return;
+ 		// Rewind audio to start. i.e. hi keys multiple times
+ 		audio.currentTime = 0;
+ 		// Play if assigned 
+ 		audio.play();
+ 		// Add class of playing to pressed key
+ 		key.classList.add('playing');
+	}
+ 	/*
+ 	* This function catches the end of transitions from one sound file to 
+ 	* the next and removes a class when the file is done
+ 	*/
+ 	function removeTransition(e){
+ 		// skip if not a transform
+ 		if(e.propertyName !== 'transform') return;
+ 		 // remove the class added
+ 		 this.classList.remove('playing');
+ 	}
+ 	// Listen for end of event for each key
+ 	const keys = document.querySelectorAll('.key');
+ 	keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+ 	window.addEventListener('keydown', playSound);
+
+
+ </script>
+</body>
+</html>
