@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+	<meta charset="utf-8">
+	<title>Scoped CSS Variables and JS</title>
+	<style>
+	/* CSS variable */
+	:root {
+		--base: #00F900;
+		--spacing: 10px;
+		--blur: 10px;		
+	}
+	/* Normal css */
+	.h1 {
+		color: var(--base);
+	}
+	img {
+		padding: var(--spacing);
+		background: var(--base);
+		filter: blur(var(--blur));
+	}
+	body {
+		text-align: center;
+	}
+	body {
+		background: #193549;
+		color: #fff;
+		font-family: 'helvetica neue', sans-serif;
+		font-weight: 100;
+		font-size: 50px;
+	}
+	.controls {
+		margin-bottom: 50px;
+	}
+	a {
+		color: var(--base);
+		text-decoration: none;
+	}
+	input {
+		width: 100px;
+	}
+</style>
+	<!-- Image source: https://picsum.photos/ -->
+</head>
+<body>
+	<h2>Update CSS Variables with <span class="h1">JS</span></h2>
+	<div class="controls">
+		<label for="spacing">Spacing:</label>
+		<input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+		<label for="blur">Blur:</label>
+		<input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+		<label for="base">Base Color</label>
+		<input type="color" name="base" value="#00F900">
+	</div>
+
+		<img src="unsplash1.jpg">
+
+<script>
+	// select all the inputs
+	const inputs = document.querySelectorAll('.controls input');
+	// Convert input values to CSS variable values
+	function handleUpdate(){
+		//console.log(this.value);
+		// suffix for 'px', empty required when no 'data-'
+		const suffix = this.dataset.sizing || '';
+		// Update the css variables
+		// console.log(this.name); name of the output
+		document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+	}
+	// Capture control events
+	inputs.forEach(input => input.addEventListener('change', handleUpdate));
+	inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+</script>
+</body>
+</html>
