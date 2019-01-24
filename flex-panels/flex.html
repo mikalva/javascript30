@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Panels Image Gallery</title>
+<!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Amatic+SC"> -->
+<style type="text/css">
+html {
+	box-sizing: border-box;
+	background: #ffc600;
+	font-family: 'helvetica neue';
+	font-size: .75rem;
+	font-weight: 200;	
+}
+body {
+	margin: 0;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+.panels {
+	min-height: 100vh;
+	overflow: hidden;
+	/* display panels vertically aligned */
+	display:flex;
+}
+/* Each panel */
+.panel {
+	background: #600F90;
+	box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+	color:#fff;
+	text-align: center;
+	align-items: center;
+	/*safari transitionend event.propertyName === flex*/
+	/*chrome + FF transitionend event.propertyName === flex-grow*/
+	transition:
+		font-size 0.8s cubic-bezier(0.61,-0.19,0.7,-0.11),
+		flex 0.7s cubic-bezier(0.61,-0.19,0.7,-0.11),
+		background 0.3s;
+	font-size: .25rem;	
+	background-size: contain;
+	background-position: center;
+	/* Each panel takes up same amount of space */
+	flex:1;
+	justify-content: space-between;
+	align-items: center;
+	/* make (flex child) panel a flex container */
+	display: flex;
+	/* Change direction from default; center in the middle*/
+	flex-direction: column;
+}
+/* Specific panels */
+.panel1 {
+	background: url('gh-leg.jpg');
+}
+.panel2 {
+	background: url('gh-head1.jpg');
+}
+.panel3 {
+	background: url('gh-eye-detail1.jpg');
+}
+.panel4 {
+	background: url('gh-head-detail1.jpg');
+}
+.panel5 {
+	background: url('gh-head-detail2.jpg');
+}
+/* flex children */
+.panel > * {
+	margin: 0;
+	width:100%;
+	transition:transform 0.5s;
+	border: 1px solid red;
+	/* evenly space panels */
+	flex: 1 0 auto;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+/* Put upper & lower text-transform: uppercase; out of screen area */
+.panel > *:first-child { transform: translateY(-100%); }
+.panel.open-active > *:first-child { transform: translateY(0); }
+.panel > *:last-child { transform: translateY(100%); }
+.panel.open-active > *:last-child { transform: translateY(0); }
+
+.panel p {
+	text-transform: uppercase;
+	font-family:'Amatic SC', cursive;
+	text-shadow: 0 0 4px rgba(0,0,0,0.72), 0 0 14px rgba(0,0,0,0.45);
+	font-size: 1.5rem;	
+}
+.panel p:nth-child(2){
+	font-size: 2rem;
+}
+.panel.open {
+	font-size: 40px;
+	/* Active panel takes up more space than other panels*/
+	flex: 5;
+}
+.cta {
+	color:#fff;
+	text-decoration: none;
+}
+</style>
+</head>
+<body>
+	<div class="panels">
+		<div class="panel panel1">
+			<p>hey</p>
+			<p>let's</p>
+			<p>instrospect</p>			
+		</div>
+		<div class="panel panel2">
+			<p>nature's</p>
+			<p>art is</p>
+			<p>free</p>			
+		</div>
+		<div class="panel panel3">
+			<p>anatomy</p>
+			<p>unleashed</p>
+			<p>unbound</p>			
+		</div>
+		<div class="panel panel4">
+			<p>evolution</p>
+			<p>seeking an</p>
+			<p>edge</p>			
+		</div>
+		<div class="panel panel5">
+			<p>death</p>
+			<p>not in</p>
+			<p>vain</p>			
+		</div>
+	</div>
+<script>
+	const panel = document.querySelectorAll('.panel');
+	// toggle the panels
+	function toggleOpen(){
+		this.classList.toggle('open');
+	}
+	function toggleActive(e){
+		// Cover safari naming convention
+		// console.log(e.propertyName);
+		if(e.propertyName.includes('flex')){			
+			this.classList.toggle('open-active')
+		}
+	}
+	panel.forEach(panel => panel.addEventListener('click', toggleOpen));
+	panel.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
