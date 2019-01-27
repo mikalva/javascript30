@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+	<p>Canvas fundamentals</p>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+	// Our variables
+	const canvas = document.querySelector('#draw');
+	// set the context
+	const ctx = canvas.getContext('2d');
+	// resize canvas default, entire window
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+/* mozilla options for line join/cap */	
+	ctx.strokeStyle = '#BADA55';// starting stroke
+	ctx.lineJoin = 'round';
+	ctx.lineCap = 'round';
+	ctx.lineWidth = 100; // default is single px
+	// Variable to distinguish drawing vs. moving mouse
+	let isDrawing = false;
+	// Beginning coords
+	let lastX = 0;
+	let lastY = 0;
+	// Handle colors & line width
+	let hue = 0;
+	let direction = true;
+	ctx.globalCompositeOperation = 'multiply';// blend mode
+
+	// Capture mouse on canvas event
+	function draw(e){
+		// console.log(e);
+		if(!isDrawing) return; // fire only when mouse is down
+		// Click and drag now works
+		ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;// change starting color
+		ctx.beginPath();
+		// Starting point
+		ctx.moveTo(lastX, lastY);
+		// Ending point
+		ctx.lineTo(e.offsetX, e.offsetY);
+		ctx.stroke();
+		// Update vars 
+		[lastX, lastY] = [e.offsetX, e.offsetY];
+		hue++; // update hue with movement
+		// Handle line width
+		if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1){
+			direction = !direction;// change direction
+		}
+		// increment or decrement line width
+		if(direction){
+			ctx.lineWidth++;
+		} else {
+			ctx.lineWidth--;
+		}
+	}
+	canvas.addEventListener('mousedown', (e) =>{
+		isDrawing = true;
+		// Begin another drawing capture
+		[lastX, lastY] = [e.offsetX, e.offsetY];
+	});
+	canvas.addEventListener('mousemove', draw);	
+	canvas.addEventListener('mouseup', () => isDrawing = false);
+	canvas.addEventListener('mouseout', () => isDrawing = false);
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
