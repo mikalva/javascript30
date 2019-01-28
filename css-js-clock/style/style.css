@@ -9,6 +9,11 @@ html {
 body {
 	font-size: 2rem;
 }
+@keyframes rotate {
+	100% {
+		transform: rotateZ(360deg);
+	}
+}
 
 .clock {
 	width: 30rem;
@@ -48,7 +53,11 @@ body {
 	transition: all 0.05s;
 	/* Transition with 'tick' motion */
 	transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1); 
-}	
+}
+.second-hand {
+	height: 3px;
+	/*animation: rotate 60s infinite steps(60);*/
+}
 .notransition {
 	-webkit-transition: none !important;
 	-moz-transition: none !important;
