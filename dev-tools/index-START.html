@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('hi, im a regular console string');
+
+    // Interpolated
+    console.log('hi, i am an interpolated $s.', 'string');
+    // Styled
+    console.log('%c I\m a styled console log', 'font-size: 18px; font-weight:bolder; text-shadow:10px 10px 0 #636363;');
+    // warning!
+    console.warn('error, error');
+    // Error :|
+    console.error('Something here is B4DD :|');
+    // Info
+    console.info('Hi, this is not useful info');
+    // Testing
+    let p = document.querySelector('p');
+    console.assert(p.classList.contains('not-a-class'), 'Thas is not a class.');
+    // clearing
+    // console.clear(); // clear up your console
+    // Viewing DOM Elements
+    console.log(p);// the element 'p'
+    console.dir(p); // class list available, properties
+    // console.clear();
+    // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);// group name
+        console.log(`this is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old`);
+        console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+    // counting
+    console.count('hi');// counts, IRT, 'hi's' 
+    console.count('hi');
+    console.count('how');
+    console.count('are');
+    console.count('are');
+    console.count('?');
+    console.count('you');
+    // timing
+    console.time('custom-name');
+    /*
+     1. name the event
+     2. point to an even that consumes time
+     3. convert to json
+     4. end the event with the same name
+     5. display your data
+    */
+    /*
+       fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('custom-name');
+        console.table(data);
+      });
+    */
+  </script>
+</body>
+</html>
