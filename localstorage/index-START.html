@@ -75,10 +75,10 @@
     // use data-index to reference
     const el = e.target;
     const index = el.dataset.index;
-    // set the attribute
-    items[index].done = !items[index].done;
+    // update property attribute items[index].done = !items[index].done;
     // set local storage
     localStorage.setItem('items', JSON.stringify(items));
+    // update html
     populateList(items, itemsList);
   }
 
