@@ -186,7 +186,7 @@
 // select anything with 'data-' attribute
 // const timeNodes = document.querySelectorAll('[data-time]');
 // console.log(timeNodes);
-// turn nodeList into an array of strings
+// TURN __nodeList__ --> Array of strings
 const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
 // console.log(seconds);
 // split into seconds
@@ -211,7 +211,7 @@ const seconds = timeNodes
   secondsLeft =  secondsLeft % 60;
   // console.log(secondsLeft + ' mins left.');
 
-  console.log(hours + ' hours and', mins + ' mins and', secondsLeft + ' seconds left');
+  console.log('Total time: ' + hours + ' hours and', mins + ' mins and', secondsLeft + ' seconds.');
 
 </script>
 </body>
