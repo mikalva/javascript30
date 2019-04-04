@@ -182,17 +182,29 @@
     </li>
   </ul>
 <script>
+/*
+Task:
+a) pull dat-time out of DOM
+b) convert to numbers (mins, seconds)
+c) add it all up
+d) figure out total hours mins seconds
+e) console log values
+*/ 
 
 // select anything with 'data-' attribute
 // const timeNodes = document.querySelectorAll('[data-time]');
-// console.log(timeNodes);
-// TURN __nodeList__ --> Array of strings
+// console.log(timeNodes);  // returns nodeList
+// Convert __nodeList__ into Array of strings
+// 1. spread it
+// const timeNodes = [...document.querySelectroAll('[data-time')];
+// 2. Run Array.from -- returns an array of all the times
 const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
 // console.log(seconds);
 // split into seconds
 const seconds = timeNodes
   .map(node => node.dataset.time)
   .map(timeCode => {
+    // Destructure
     const [mins, secs] = timeCode.split(':').map(parseFloat);
     return (mins * 60 ) + secs;
     // console.log(mins, secs);
